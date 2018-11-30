@@ -56,6 +56,8 @@
                 $("#target-number").val('');
         });
     $("#submit-numbers").on("click", function(event){
+        targarray = [];
+        ar = [];
         //ui / style / getting inputs
         error = false;
         $("#sc").html('');
@@ -99,6 +101,7 @@
             rep = 0;
             target = 0;
             error = true;
+            break;
             }
         }
         ar.push(lower);
@@ -116,6 +119,8 @@
         }
 
 //logic
+console.log(upper);
+        
         localrand = 0;
         times = 0;
         percentage = 0;
@@ -148,6 +153,51 @@
         if(error == false){
         $("#tst").html('Target(s) happened ' + times + ' times, with a percentage of ' + percentage);
         }
+        console.log(upper);
+    });
+    $("#run-again").on("click",function(event){
+        $("#sc").html('');
+        lower = parseInt(ar[0]);
+        upper = parseInt(ar[1]);
+        rep = parseInt(ar[2]);
+        
+        event.preventDefault();
+        console.log(targarray);
+        console.log(upper);
+        console.log(ar);
+        localrand = 0;
+        times = 0;
+        percentage = 0;
+       index = 1;
+        stat = parseInt((1- Math.pow((1-(targarray.length/(parseInt(upper) - parseInt(lower)))),rep))*100);
+        console.log(stat);
+        stat = stat + "%";
+        for(i = 1; i<rep; i++){
+            localrand = parseInt(lower) + parseInt((Math.floor(Math.random() * (upper - lower) + lower)));
+            console.log(lower);
+            for(z = 0; z < targarray.length; z++){
+                if(localrand == targarray[z]){
+                    times++;
+                }
+                if(times == 0){
+                    percentage = 0;
+                }
+                else{
+                    
+                    
+                percentage = (times/i)*100;
+                    
+                }
+               
+            }
+                $("#sc").append("<tr><th scope='row'>"+ index + "</th><td>" + localrand + "</th><td>"+times + "</th><td>" + percentage + "%" + "</th><td>" + stat);
+                stat = "";
+                index++;
+        }
+        if(error == false){
+        $("#tst").html('Target(s) happened ' + times + ' times, with a percentage of ' + percentage);
+        }
+
     });
     
 });
@@ -226,6 +276,7 @@
                 <button class="btn btn-primary" id="submit-numbers" type="submit">Submit</button>
             
               </form>
+              <button class = "btn btn-danger" id = "run-again">Again?</button>
             </div>
           </div>
         </div>
