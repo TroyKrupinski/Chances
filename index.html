@@ -90,9 +90,9 @@
             error = true;
         }
         for(u = 0; u< targarray.length; u++){
-            targstring3 = "#target" + x;
-            ercheck = parseInt($(targstring3).val())
-            if($(targstring3).val() == 0){
+            targstring3 = "#target" + u;
+           
+            if($(targstring3).val() == ''){
                 alert('Must enter something for every target.')
                 lower = 0;
             upper = 0;
@@ -123,7 +123,7 @@
         stat = parseInt((1- Math.pow((1-(targarray.length/(parseInt(upper) - parseInt(lower)))),rep))*100);
         console.log(stat);
         stat = stat + "%";
-        for(i = 0; i<rep; i++){
+        for(i = 1; i<rep; i++){
             localrand = parseInt(lower) + parseInt((Math.floor(Math.random() * (upper - lower) + lower)));
             console.log(lower);
             for(z = 0; z < targarray.length; z++){
@@ -134,8 +134,12 @@
                     percentage = 0;
                 }
                 else{
+                    
+                    
                 percentage = (times/i)*100;
+                    
                 }
+               
             }
                 $("#sc").append("<tr><th scope='row'>"+ index + "</th><td>" + localrand + "</th><td>"+times + "</th><td>" + percentage + "%" + "</th><td>" + stat);
                 stat = "";
